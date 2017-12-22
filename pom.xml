@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.aweiz.ce</groupId>
+  <artifactId>ce</artifactId>
+  <version>1</version>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>address-service</module>
+    <module>ce-config</module>
+    <module>ce-discover</module>
+    <module>labor-service</module>
+    <module>material-service</module>
+    <module>estimator</module>
+    <module>ce-zipkin</module>
+  </modules>
+</project>

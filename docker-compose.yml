@@ -1,0 +1,18 @@
+version:              '2'
+services:
+    config-server:
+      container_name: ce-config
+      image:          ce-config:latest
+      ports:
+        - 8888:8888
+    estimator:
+     image:           estimator
+     ports:
+       - 7777:7777
+     links:
+       - config-server
+       - discover
+    discover:
+      image:          ce-discover
+      ports:
+        - 8761:8761
