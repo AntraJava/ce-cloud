@@ -1,18 +1,49 @@
-version:              '2'
+version: '2.1'
 services:
-    config-server:
-      container_name: ce-config
-      image:          ce-config:latest
-      ports:
-        - 8888:8888
-    estimator:
-     image:           estimator
-     ports:
-       - 7777:7777
-     links:
-       - config-server
-       - discover
-    discover:
-      image:          ce-discover
-      ports:
-        - 8761:8761
+  ce-config:
+    image:          ce-config
+    ports:
+      - 8888:8888
+  estimator:
+   image:           estimator
+   ports:
+     - 7777:7777
+   depends_on:
+      ce-config:
+        condition: service_healthy
+      ce-discover:
+        condition: service_healthy
+  address-service:
+   image:           address-service
+   ports:
+     - 6666:6666
+   depends_on:
+      ce-config:
+        condition: service_healthy
+      ce-discover:
+        condition: service_healthy
+  material-service:
+   image:           material-service
+   ports:
+     - 5555:5555
+   depends_on:
+      ce-config:
+        condition: service_healthy
+      ce-discover:
+        condition: service_healthy
+  labor-service:
+   image:           labor-service
+   ports:
+     - 4444:4444
+   depends_on:
+      ce-config:
+        condition: service_healthy
+      ce-discover:
+        condition: service_healthy
+  ce-discover:
+    image:         ce-discover
+    depends_on:
+      ce-config:
+        condition: service_healthy
+    ports:
+      - 8761:8761
